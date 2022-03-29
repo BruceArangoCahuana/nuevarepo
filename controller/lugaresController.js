@@ -1,4 +1,3 @@
-const { json } = require('express/lib/response');
 const Lugares = require('../models/Lugares');
 
 
@@ -38,4 +37,15 @@ exports.listarPorId = async(req,res,next)=>{
         return next();
     }
     res.json(lugares)
+}
+//traer por categoria
+exports.listarPorCategoria = async(req,res,next)=>{
+    try {
+        const lugaresPorcategoria = await Lugares.find({categoria:req.params.categoria});
+        res.json(lugaresPorcategoria)
+    } catch (error) {
+        res.send(error);
+        console.log(error);
+        return next()
+    }
 }
